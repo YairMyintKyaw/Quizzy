@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/stationary"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Congratulation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/SubText"
+        android:textColor="@color/black"
+        android:text="Congratulations"
+        android:textSize="30dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:id="@+id/SubText"
+        android:layout_marginBottom="40dp"
+        android:text="You Did Your Best"
+        android:layout_above="@id/PassOrFail"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:layout_marginVertical="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PassOrFail"
+        android:textColor="@color/black"
+        android:text="Pass"
+        android:textSize="25dp"
+        android:layout_above="@id/Point"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:id="@+id/Point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="7/10"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go Home"
+        android:textSize="15dp"
+        android:background="@color/white"
+        android:padding="20dp"
+        android:layout_below="@id/Point"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:id="@+id/goHomeBtn"
+        />
+</RelativeLayout>

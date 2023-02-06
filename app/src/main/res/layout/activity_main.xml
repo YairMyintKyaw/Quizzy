@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:layout_width="208dp"
+            android:layout_height="163dp"
+            android:layout_above="@+id/GetStartBtn"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/quiz_icon" />
+
+
+        <Button
+            android:id="@+id/GetStartBtn"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="@color/teal_700"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
