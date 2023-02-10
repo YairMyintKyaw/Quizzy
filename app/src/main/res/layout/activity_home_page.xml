@@ -52,14 +52,53 @@
             android:background="@color/white"
             android:layout_marginBottom="15dp"
             android:textSize="17dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/About"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight=".5"
+
+                android:padding="15dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:textSize="17dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:textColor="@color/black"
+                    android:text="About"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/music"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight=".5"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="14dp"
+                android:textSize="17dp"
+                >
+                <ImageView
+                    android:id="@+id/musicIcon"
+                    android:src="@drawable/music"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
+            </RelativeLayout>
+        </LinearLayout>
         <Button
-            android:id="@+id/Record"
+            android:id="@+id/exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="See History"
+            android:text="Exit"
             android:padding="15dp"
             android:background="@color/white"
-
+            android:layout_marginTop="15dp"
             android:textSize="17dp"/>
     </LinearLayout>
 

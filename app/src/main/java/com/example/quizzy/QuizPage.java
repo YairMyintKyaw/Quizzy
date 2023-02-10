@@ -16,9 +16,12 @@ import android.text.style.QuoteSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class QuizPage extends AppCompatActivity {
+
+    RelativeLayout countDownContainer;
     TextView totalQuestionsTextView,countDown;
     TextView questionTextView;
     TextView ansA,ansB,ansC,ansD;
@@ -27,7 +30,6 @@ public class QuizPage extends AppCompatActivity {
     Button skipBtn;
 
     ImageView imgView;
-
     int currentQuestionIndex=0;
     static int score = 0;
 
@@ -66,7 +68,7 @@ public class QuizPage extends AppCompatActivity {
 
         //Image
         imgView = findViewById(R.id.img);
-
+        countDownContainer = findViewById(R.id.countDownContainer);
         skipBtn = findViewById(R.id.skip_btn);
         // set listener
         cardA.setOnClickListener(cardClickListener);
@@ -87,6 +89,10 @@ public class QuizPage extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
     final View.OnClickListener cardClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -102,7 +108,7 @@ public class QuizPage extends AppCompatActivity {
                 MediaPlayer.create(QuizPage.this,R.raw.correct_sound).start();
                 score++;
                 selectedCard.setBackgroundColor(Color.GREEN);
-                imgView.setImageResource(R.drawable.green_tick);
+                imgView.setImageResource(R.drawable.check_mark);
             }else{
                 switch (findAnswerCard()){
                     case "A":
@@ -119,7 +125,7 @@ public class QuizPage extends AppCompatActivity {
                         break;
                 }
 
-                imgView.setImageResource(R.drawable.red_circle);
+                imgView.setImageResource(R.drawable.cancel);
                 selectedCard.setBackgroundColor(Color.RED);
                 MediaPlayer.create(QuizPage.this,R.raw.wrong_ans).start();
             };
@@ -154,27 +160,21 @@ public class QuizPage extends AppCompatActivity {
         }
 
         if (timerMillisecond!=0){
+            countDownContainer.setVisibility(View.VISIBLE);
             timer(timerMillisecond*1000);
         }else{
-            countDown.setText("∞");
+            countDownContainer.setVisibility(View.INVISIBLE);
+
         }
 
         currentQuestion = QuestionGenerator.generateQuestion();
         totalQuestionsTextView.setText(" Question: " + (currentQuestionIndex+1) + " / " + totalQuestion );
         questionTextView.setText(currentQuestion.getQuestion());
-        // to remove decimal when it is not division operator
-        if(currentQuestion.operator.equals("÷")){
-            ansA.setText(String.valueOf(currentQuestion.getOption1()));
-            ansB.setText(String.valueOf(currentQuestion.getOption2()));
-            ansC.setText(String.valueOf(currentQuestion.getOption3()));
-            ansD.setText(String.valueOf(currentQuestion.getOption4()));
-        }
-        else{
-            ansA.setText(String.valueOf((int) currentQuestion.getOption1()));
-            ansB.setText(String.valueOf((int) currentQuestion.getOption2()));
-            ansC.setText(String.valueOf((int) currentQuestion.getOption3()));
-            ansD.setText(String.valueOf((int) currentQuestion.getOption4()));
-        }
+        ansA.setText(String.valueOf(currentQuestion.getOption1()));
+        ansB.setText(String.valueOf(currentQuestion.getOption2()));
+        ansC.setText(String.valueOf(currentQuestion.getOption3()));
+        ansD.setText(String.valueOf(currentQuestion.getOption4()));
+
     }
     private String findAnswerCard(){
         if (currentQuestion.getAns() == currentQuestion.getOption1()) {
@@ -201,7 +201,7 @@ public class QuizPage extends AppCompatActivity {
         countDownTimer = new CountDownTimer(totalPeriodTime,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                countDown.setText("Timer : "+millisUntilFinished/1000 + "s");
+                countDown.setText(" : "+millisUntilFinished/1000 + "s");
             }
 
             @Override
@@ -227,7 +227,7 @@ public class QuizPage extends AppCompatActivity {
                         break;
                 }
 
-                imgView.setImageResource(R.drawable.red_circle);
+                imgView.setImageResource(R.drawable.cancel);
             }
         }.start();
     }

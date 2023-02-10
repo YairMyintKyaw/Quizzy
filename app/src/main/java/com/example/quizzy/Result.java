@@ -35,16 +35,18 @@ public class Result extends AppCompatActivity {
         goHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuizPage.score=0;
 
                 Intent intent = new Intent(Result.this,HomePage.class);
                 startActivity(intent);
 
-                MediaPlayer.create(Result.this,R.raw.btn_click_sound).start();
+                MediaPlayer.create(Result.this,R.raw.btn_click).start();
             }
         });
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
     }
 }
