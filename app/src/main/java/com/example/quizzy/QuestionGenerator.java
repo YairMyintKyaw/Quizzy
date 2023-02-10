@@ -10,7 +10,7 @@ public class QuestionGenerator {
     static Random random = new Random();
 
     private static int generateRandomNumber(){
-        return random.nextInt(16)+1;
+        return random.nextInt(12)+1;
     }
 
     private static String[] operators = new String[]{"+","-","x","÷"};
@@ -52,11 +52,8 @@ public class QuestionGenerator {
             }
             option = generateAnswer(num1, num2, operator);
 
-            }else if(operator=="x"){
-                option = random.nextInt(250);
-            }
-            else{
-                option = random.nextInt(30);
+            }else{
+                option = generateRandomNumber();
             }
             if (!options.contains(option)){
                 options.add(option);
@@ -72,16 +69,21 @@ public class QuestionGenerator {
         int num1 = generateRandomNumber();
         int num2 = generateRandomNumber();
         if(operator.equals("x")){
-            while ( num1==1 || num2==1 ){
+            while (num1*num2>12 || num1==1 || num2==1 ){
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumber();
             }
         }else if(operator.equals("÷")){
             float result = (float)num1/(float)num2;
-            while (Math.floor(result)!=result || num1==1 || num2==1 || num2==num1){
+            while (Math.floor(result)!=result){
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumber();
                 result = (float)num1/(float)num2;
+            }
+        }else if(operator.equals("+")){
+            while (num1+num2>12){
+                num1 = generateRandomNumber();
+                num2 = generateRandomNumber();
             }
         }
         String question = null;
