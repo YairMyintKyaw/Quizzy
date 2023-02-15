@@ -8,22 +8,27 @@ import java.util.Random;
 
 public class QuestionGenerator {
     static Random random = new Random();
-
+    // generate random numbers
     private static int generateRandomNumber(){
-        return random.nextInt(16)+1;
+        return random.nextInt(12)+1;
     }
 
+    //operators used
     private static String[] operators = new String[]{"+","-","x","÷"};
 
+    // generate random operator
     private static String generateRandomOperator(){
       int index = random.nextInt(4);
       return operators[index];
     };
+
+    //generate answer
     private static int generateAnswer(int num1, int num2, String operator){
         switch (operator){
             case "+":
                 return num1 + num2;
             case "-":
+                //making sure the answer is not negative
                 return Math.max(num1-num2,num2-num1);
             case "x":
                 return num1 * num2;
@@ -34,6 +39,7 @@ public class QuestionGenerator {
         return 0;
     }
 
+    // generate options for the question
     private static List<Integer> generateOptions(int ans, String operator){
         List<Integer> options = new ArrayList<Integer>();
 
@@ -52,36 +58,44 @@ public class QuestionGenerator {
             }
             option = generateAnswer(num1, num2, operator);
 
-            }else if(operator=="x"){
-                option = random.nextInt(250);
-            }
-            else{
-                option = random.nextInt(30);
+            }else{
+                option = generateRandomNumber();
             }
             if (!options.contains(option)){
                 options.add(option);
             }
         }
+
+        //changing the index place of the elements random
         Collections.shuffle(options);
         return options;
     }
 
+    //generate questoin
     public static Question generateQuestion(){
         String operator = generateRandomOperator();
 
         int num1 = generateRandomNumber();
         int num2 = generateRandomNumber();
         if(operator.equals("x")){
-            while ( num1==1 || num2==1 ){
+            //making sure that the answer is not over 12 and not 1
+            while (num1*num2>12 || num1==1 || num2==1 ){
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumber();
             }
         }else if(operator.equals("÷")){
             float result = (float)num1/(float)num2;
-            while (Math.floor(result)!=result || num1==1 || num2==1 || num2==num1){
+            //making sure that the answer is not decimal
+            while (Math.floor(result)!=result){
                 num1 = generateRandomNumber();
                 num2 = generateRandomNumber();
                 result = (float)num1/(float)num2;
+            }
+        }else if(operator.equals("+")){
+            //making sure the answer does not exceed 12
+            while (num1+num2>12){
+                num1 = generateRandomNumber();
+                num2 = generateRandomNumber();
             }
         }
         String question = null;

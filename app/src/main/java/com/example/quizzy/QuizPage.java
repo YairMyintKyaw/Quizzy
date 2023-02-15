@@ -75,6 +75,8 @@ public class QuizPage extends AppCompatActivity {
         cardB.setOnClickListener(cardClickListener);
         cardC.setOnClickListener(cardClickListener);
         cardD.setOnClickListener(cardClickListener);
+
+        // add event listener to the skip button
         skipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +91,7 @@ public class QuizPage extends AppCompatActivity {
 
     }
 
+    // disable back button of the device
     @Override
     public void onBackPressed() {
     }
@@ -104,10 +107,11 @@ public class QuizPage extends AppCompatActivity {
             selectedAns = Float.parseFloat(selectedTextView.getText().toString()) ;
 
             if(selectedAns==currentQuestion.getAns()) {
-
+                // play correct song
                 MediaPlayer.create(QuizPage.this,R.raw.correct_sound).start();
                 score++;
                 selectedCard.setBackgroundColor(Color.GREEN);
+                // show check mark
                 imgView.setImageResource(R.drawable.check_mark);
             }else{
                 switch (findAnswerCard()){
@@ -124,14 +128,19 @@ public class QuizPage extends AppCompatActivity {
                         cardD.setBackgroundColor(Color.GREEN);
                         break;
                 }
-
+                // show the red cross
                 imgView.setImageResource(R.drawable.cancel);
                 selectedCard.setBackgroundColor(Color.RED);
+                // play wrong songs
                 MediaPlayer.create(QuizPage.this,R.raw.wrong_ans).start();
             };
             if (timerMillisecond!=0){
+
+                //stop timer when the user have answered the question
                 countDownTimer.cancel();
             }
+
+            // disable the buttons so that user cannot answer the question again
             cardA.setEnabled(false);
             cardB.setEnabled(false);
             cardC.setEnabled(false);
@@ -146,6 +155,8 @@ public class QuizPage extends AppCompatActivity {
 
         imgView.setImageDrawable(null);
         skipBtn.setText("SKIP");
+
+        // enable the buttons so user can answer again
         cardA.setEnabled(true);
         cardB.setEnabled(true);
         cardC.setEnabled(true);
@@ -160,22 +171,31 @@ public class QuizPage extends AppCompatActivity {
         }
 
         if (timerMillisecond!=0){
+            //show countdown for level 1 and 2
             countDownContainer.setVisibility(View.VISIBLE);
+            //set timer
             timer(timerMillisecond*1000);
         }else{
+            // hide the counter for level 0
             countDownContainer.setVisibility(View.INVISIBLE);
 
         }
-
+        // generate random question
         currentQuestion = QuestionGenerator.generateQuestion();
+
+        // show current question number
         totalQuestionsTextView.setText(" Question: " + (currentQuestionIndex+1) + " / " + totalQuestion );
+        //show question
         questionTextView.setText(currentQuestion.getQuestion());
+        //show options
         ansA.setText(String.valueOf(currentQuestion.getOption1()));
         ansB.setText(String.valueOf(currentQuestion.getOption2()));
         ansC.setText(String.valueOf(currentQuestion.getOption3()));
         ansD.setText(String.valueOf(currentQuestion.getOption4()));
 
     }
+
+    // find the correct answer button
     private String findAnswerCard(){
         if (currentQuestion.getAns() == currentQuestion.getOption1()) {
             return "A";
@@ -189,6 +209,8 @@ public class QuizPage extends AppCompatActivity {
             return null;
         }
     }
+
+    // this will go to result page
     private void finishQuiz() {
         Intent intent = new Intent(QuizPage.this,Result.class);
         startActivity(intent);
@@ -196,7 +218,7 @@ public class QuizPage extends AppCompatActivity {
     }
 
 
-
+    // timer function for level 1 and 2
     void timer(int totalPeriodTime){
         countDownTimer = new CountDownTimer(totalPeriodTime,1000) {
             @Override
@@ -207,11 +229,13 @@ public class QuizPage extends AppCompatActivity {
             @Override
             public void onFinish() {
                 MediaPlayer.create(QuizPage.this,R.raw.wrong_ans).start();
+                // disable the card to be sure user no longer answer the question
                 cardA.setEnabled(false);
                 cardB.setEnabled(false);
                 cardC.setEnabled(false);
                 cardD.setEnabled(false);
                 skipBtn.setText("NEXT");
+                // show the correct answer
                 switch (findAnswerCard()){
                     case "A":
                         cardA.setBackgroundColor(Color.GREEN);
